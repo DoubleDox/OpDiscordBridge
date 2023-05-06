@@ -1,7 +1,5 @@
 const version = '0.3.0';
 const axios = require('axios');
-const qs = require('querystring');
-const config = require('./config.json');
 
 //subject
 //description { format, raw, html }
@@ -16,7 +14,7 @@ function HEXToVBColor(rrggbb, start) {
 
 var cache = {};
 
-async function logicInit()
+async function logicInit(config)
 {//ssr-vragh-iz-budushchiegho
     for (let project of config.projects)
     {
@@ -52,7 +50,9 @@ async function logicInit()
 
 exports.Init = (app) =>
 {
-    logicInit();
+    logicInit(app.config);
+
+    var config = app.config;
 
     app.server.all('/ophook', async(req, res) =>
     {

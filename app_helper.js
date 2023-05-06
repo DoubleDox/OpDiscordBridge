@@ -32,7 +32,7 @@ class App
 
     Start()
     {
-        let port = this.config.port;
+        let port = this.config.port ?? 8080;
         this.server.listen(port, () => 
         {
             console.log(this.config.name + ` service listening on port ${port}`)
