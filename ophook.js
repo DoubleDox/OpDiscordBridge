@@ -113,16 +113,16 @@ exports.Init = (app) =>
 
                 try
                 {
-                    let resp = await axios.get('https://openproject.quadcom.biz/api/v3/work_packages/' + b.id + '/activities', { auth : auth });
+                    let resp = await axios.get(config.op_host + '/api/v3/work_packages/' + b.id + '/activities', { auth : auth });
                     let list = resp.data?._embedded?.elements;
                     let hasRequest = false;
-                    if (list != null)
+                    if (list != null && config.git_host != null)
                     {
                         for (let el of list)
                         {
                             if (el._type == 'Activity::Comment' && el.comment != null)
                             {
-                                if (el.comment.raw.indexOf('gitlab.quadcom.biz') >= 0)
+                                if (el.comment.raw.indexOf(config.git_host) >= 0)
                                     hasRequest = true;
                             }
                         }
@@ -145,7 +145,7 @@ exports.Init = (app) =>
                 for (let id of project.reviewers)
                     notify += '<@' + config.users[id] + '>';
             }
-            let link = 'https://openproject.quadcom.biz/work_packages/' + b.id + '/activity'
+            let link = config.op_host + '/work_packages/' + b.id + '/activity'
             await axios.post(project.webhook, { content : header + '\n' + b.subject + '\n' + link + ' ' + notify , embeds : [ message ] });
         }
 
