@@ -2,7 +2,7 @@
 Bridge from OpenProject to Discord
 
 place config.json to folder before launching with content (example)
-
+```
 {
     "port" : 8080,
     "op_host": "https://YOUR_OPENPROJECT_HOST",
@@ -10,7 +10,6 @@ place config.json to folder before launching with content (example)
         "username": "key",
         "password": "password"
     },
-    "git_host": "https://YOUR_GIT_HOST(optional)",
     "users":
     {
         "USER_OP_ID":"USER_DISCORD_ID"
@@ -24,4 +23,4 @@ place config.json to folder before launching with content (example)
         }
     ]
 }
-
+```
