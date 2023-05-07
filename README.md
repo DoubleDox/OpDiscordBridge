@@ -1,7 +1,9 @@
 # OpDiscordBridge
 Bridge from OpenProject to Discord
 
-place config.json to folder before launching with content (example)
+1. Generate Discord webhook for channel (**webhook** field in config)
+2. Generate api key to access Open Project (**op_auth** field in config)
+3. place config.json to script folder with example content:
 ```
 {
     "port" : 8080,
@@ -24,3 +26,5 @@ place config.json to folder before launching with content (example)
     ]
 }
 ```
+4. launch with NodeJS script app.js. If OP auth setup is corect, script should load list of the current opened work packages.
+5. Setup webhook in Open Project for work package "create" and "update" events, leading to http(s)://YOUR_OPDISCORDBRIDGE:port/ophook
