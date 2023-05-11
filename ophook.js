@@ -95,8 +95,8 @@ exports.Init = (app) =>
             fields.push( { name : 'Assignee', value : (cache[b.id].assignee_title??'none') + ' -> ' + assignee });
             cache[b.id].assignee = ass;
             cache[b.id].assignee_title = assignee;
-            if (idMap[ass] != null)
-                notify += '<@' + idMap[ass] +'>';
+            if (config.users[ass] != null)
+                notify += '<@' + config.users[ass] +'>';
         }
         else if (fields.length > 0)
             fields.push( { name : 'Assignee', value : assignee });
@@ -113,7 +113,7 @@ exports.Init = (app) =>
 
                 try
                 {
-                    let resp = await axios.get(config.op_host + '/api/v3/work_packages/' + b.id + '/activities', { auth : auth });
+                    let resp = await axios.get(config.op_host + '/api/v3/work_packages/' + b.id + '/activities', { auth : config.op_auth });
                     let list = resp.data?._embedded?.elements;
                     let hasRequest = false;
                     if (list != null && config.git_host != null)
