@@ -1,5 +1,5 @@
-# OpDiscordBridge
-Bridge from OpenProject to Discord
+# Open Project Discord Bridge
+Webhook Bridge from OpenProject to Discord
 
 1. Generate Discord webhook for channel (**webhook** field in config)
 2. Generate api key to access Open Project (**op_auth** field in config)
