@@ -1,4 +1,4 @@
-const version = '0.3.0';
+const version = '0.3.1';
 const axios = require('axios');
 
 //subject
@@ -74,6 +74,8 @@ exports.Init = (app) =>
         if (st.indexOf('/') >= 0)
             st = parseInt(st.substr(st.lastIndexOf('/') + 1));
 
+        let closed = st == 12;
+            
         let assignee = b._links?.assignee?.title;
         let ass = b._links?.assignee?.href;
         if (ass.indexOf('/') >= 0)
@@ -95,7 +97,7 @@ exports.Init = (app) =>
             fields.push( { name : 'Assignee', value : (cache[b.id].assignee_title??'none') + ' -> ' + assignee });
             cache[b.id].assignee = ass;
             cache[b.id].assignee_title = assignee;
-            if (config.users[ass] != null)
+            if (config.users[ass] != null && !closed)
                 notify += '<@' + config.users[ass] +'>';
         }
         else if (fields.length > 0)
