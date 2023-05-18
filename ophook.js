@@ -78,7 +78,7 @@ exports.Init = (app) =>
             
         let assignee = b._links?.assignee?.title;
         let ass = b._links?.assignee?.href;
-        if (ass.indexOf('/') >= 0)
+        if (ass != null && ass.indexOf('/') >= 0)
             ass = parseInt(ass.substr(ass.lastIndexOf('/') + 1));
 
         let fields = [];
