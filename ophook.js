@@ -1,4 +1,4 @@
-const version = '0.3.1';
+const version = '0.3.2';
 const axios = require('axios');
 
 //subject
@@ -74,7 +74,7 @@ exports.Init = (app) =>
         if (st.indexOf('/') >= 0)
             st = parseInt(st.substr(st.lastIndexOf('/') + 1));
 
-        let closed = st == 12;
+        let closed = st == config.op_status_closed;
             
         let assignee = b._links?.assignee?.title;
         let ass = b._links?.assignee?.href;
@@ -109,7 +109,7 @@ exports.Init = (app) =>
             let message = { username :  'OP Bot', color: HEXToVBColor(b._embedded?.status?.color) }; // title = ''
             message.fields = fields;
             let header = '**Обновление задачи №' + b.id + '**';
-            if (st == 8)
+            if (st == config.op_status_need_testing)
             {
                 header = '**Задача №' + b.id + ' готова к тестированию**';
 
@@ -141,7 +141,7 @@ exports.Init = (app) =>
                 for (let id of project.testers)
                     notify += '<@' + config.users[id] + '>';
             }
-            if (st == 10)
+            if (st == config.op_status_need_review)
             {
                 header = '**Задача №' + b.id + ' готова к ревью**';
                 for (let id of project.reviewers)
