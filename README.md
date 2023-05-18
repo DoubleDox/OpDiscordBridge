@@ -12,6 +12,9 @@ Webhook Bridge from OpenProject to Discord
         "username": "key",
         "password": "password"
     },
+    "op_status_closed": OPEN_PROJECT_CLOSED_STATUS_ID,
+    "op_status_need_testing": OPEN_PROJECT_NEED_TESTING_STATUS_ID,
+    "op_status_need_review": OPEN_PROJECT_NEED_REVIEW_STATUS_ID,
     "users":
     {
         "USER_OP_ID":"USER_DISCORD_ID"
