@@ -1,4 +1,4 @@
-const version = '0.3.2';
+const version = '0.3.3';
 const axios = require('axios');
 
 //subject
@@ -138,14 +138,23 @@ exports.Init = (app) =>
                     console.error('Cannot fetch comments of ' + b.id + ': ' + exc);
                 }
 
-                for (let id of project.testers)
-                    notify += '<@' + config.users[id] + '>';
+                if (project.testers != null)
+                    for (let id of project.testers)
+                        notify += '<@' + config.users[id] + '>';
             }
             if (st == config.op_status_need_review)
             {
                 header = '**Задача №' + b.id + ' готова к ревью**';
-                for (let id of project.reviewers)
-                    notify += '<@' + config.users[id] + '>';
+                if (project.reviewers != null)    
+                    for (let id of project.reviewers)
+                        notify += '<@' + config.users[id] + '>';
+            }
+            if (st == config.op_status_need_prereview)
+            {
+                header = '**Задача №' + b.id + ' требует преревью**';
+                if (project.prereviewers != null)
+                    for (let id of project.prereviewers)
+                        notify += '<@' + config.users[id] + '>';
             }
             let link = config.op_host + '/work_packages/' + b.id + '/activity'
             await axios.post(project.webhook, { content : header + '\n' + b.subject + '\n' + link + ' ' + notify , embeds : [ message ] });
@@ -153,4 +162,12 @@ exports.Init = (app) =>
 
         res.status(200).send('ok');
     });
+
+    if (config.admin_key != null)
+    {
+        app.server.get('/ophook_admin_' + config.admin_key, async (req, res) => 
+        {
+            
+        });
+    }
 }
